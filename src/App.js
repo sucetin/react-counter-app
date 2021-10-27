@@ -1,9 +1,15 @@
 import './App.css';
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
 function App() {
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(() => {
+    const saved = parseInt(localStorage.getItem('number'));
+    return saved || 0;
+  });
+  useEffect(() => {
+    localStorage.setItem('number', count)
+  }, [count]);
 
   const handleIncrement = () => {
     setCount(count => count + 1)
